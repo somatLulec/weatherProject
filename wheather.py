@@ -42,7 +42,7 @@ def search():
     icon_label.configure(image=icon)
     icon_label.image = icon
 
-    temperature_label.configure(text=f"Teplota {temperature:2f}°C")
+    temperature_label.configure(text=f"Teplota {temperature:.2f}°C")
     description_label.configure(text=f"Popis {description}")
 
 
