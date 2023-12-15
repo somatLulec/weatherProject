@@ -5,7 +5,19 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 import ttkbootstrap
 
-
+def get_cesky(popis):
+    match popis:
+        case "overcast clouds":
+            return "zataženo, mraky"
+        case "light rain":
+            return "jemný déšť"
+        case "broken clouds":
+            return "roztrhané mraky"
+        case "few clouds":
+            return "málo mraků"
+        case "clear sky":
+            return "jasno"
+    return popis
 def get_weather(city):
     API_key = "7ef2edbd7b0a1242681a19d0327096c6"
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_key}"
@@ -21,7 +33,7 @@ def get_weather(city):
     weather = res.json()
     icon_id = weather['weather'][0]['icon']
     temperature = weather['main']['temp'] - 273.15
-    description = weather['weather'][0]['description']
+    description = get_cesky(weather['weather'][0]['description'])
     city = weather['name']
     country = weather['sys']['country']
 
@@ -46,17 +58,18 @@ def search():
     description_label.configure(text=f"Popis: {description}")
 
 
-root = ttkbootstrap.Window(themename="morph")
-root.title = "Předpověď počasí"
-root.geometry("400x400")
+root = ttkbootstrap.Window(title='Předpověď počasí', themename="morph")
+
+root.geometry("400x500")
 
 city_entry = ttkbootstrap.Entry(root, font="Helvetica, 18")
+city_entry.insert(0, "Luleč")
 city_entry.pack(pady=10)
 
 search_button = ttkbootstrap.Button(root, text="Hledat", command=search, bootstyle="warning")
 search_button.pack(pady=10)
 
-location_label = tk.Label(root, font="Helvetoce, 25")
+location_label = tk.Label(root, font="Helvetica, 25")
 location_label.pack(pady=20)
 
 icon_label = tk.Label(root)
@@ -68,6 +81,7 @@ temperature_label.pack()
 description_label = tk.Label(root, font="Helvetica, 20")
 description_label.pack()
 
+search()
 root.mainloop()
 
 
