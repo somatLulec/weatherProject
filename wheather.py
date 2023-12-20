@@ -17,6 +17,8 @@ def get_cesky(popis):
             return "málo mraků"
         case "clear sky":
             return "jasno"
+        case "light snow":
+            return "slabé sněžení"
     return popis
 def get_weather(city):
     API_key = "7ef2edbd7b0a1242681a19d0327096c6"
