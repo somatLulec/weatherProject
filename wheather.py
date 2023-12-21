@@ -2,6 +2,7 @@
 import tkinter as tk
 import requests
 from tkinter import messagebox
+from tkinter import ttk
 from PIL import Image, ImageTk
 import ttkbootstrap
 
@@ -32,6 +33,11 @@ def get_weather(city):
         messagebox.showerror("Error", "Město nenalezeno.")
         return None
 
+    limit = 5
+    city1 = "lulec"
+    url1 = f"http://api.openweathermap.org/geo/1.0/direct?q={city1}&limit={limit}&appid={API_key}"
+    res1 = requests.get(url1)
+
     weather = res.json()
     icon_id = weather['weather'][0]['icon']
     temperature = weather['main']['temp'] - 273.15
@@ -58,7 +64,6 @@ def search():
 
     temperature_label.configure(text=f"Teplota: {temperature:.2f}°C")
     description_label.configure(text=f"Popis: {description}")
-
 
 root = ttkbootstrap.Window(title='Předpověď počasí', themename="morph")
 
